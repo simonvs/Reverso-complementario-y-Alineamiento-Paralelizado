@@ -13,7 +13,7 @@ char complemento(char nucleotido) {
 }
 
 // Función para calcular el reverso complementario de una secuencia de ADN
-char* reversoComplementario(const char* secuencia) {
+char* reversoComplementario(const char* secuencia, int num_threads) {
     int len = strlen(secuencia);
     char* resultado = (char*) malloc((len + 1) * sizeof(char));
 
@@ -23,7 +23,7 @@ char* reversoComplementario(const char* secuencia) {
     // Calcular el tamaño de bloque para cada thread
     int block_size = len / num_threads;
 
-    #pragma omp parallel
+    #pragma omp parallel num_threads(num_threads)
     {
         // Obtener el ID del thread
         int thread_id = omp_get_thread_num();
