@@ -43,13 +43,49 @@ char* reversoComplementario(const char* secuencia) {
     return resultado;
 }
 
+// Función para generar una secuencia aleatoria de ADN
+char* generarSecuenciaADN(int longitud) {
+    char* secuencia = (char*) malloc((longitud + 1) * sizeof(char));
+
+    srand(time(NULL));  // Inicializar la semilla aleatoria con la hora actual
+
+    for (int i = 0; i < longitud; i++) {
+        int aleatorio = rand() % 4;  // Generar un número aleatorio entre 0 y 3
+
+        switch (aleatorio) {
+            case 0:
+                secuencia[i] = 'A';
+                break;
+            case 1:
+                secuencia[i] = 'T';
+                break;
+            case 2:
+                secuencia[i] = 'C';
+                break;
+            case 3:
+                secuencia[i] = 'G';
+                break;
+        }
+    }
+
+    secuencia[longitud] = '\0';
+    return secuencia;
+}
+
 int main() {
-    const char* secuencia = "ATCGGCTA";
+    const char* secuencia = generarSecuenciaADN(40);
+
+    // Medir el tiempo inicial
+    double start_time = omp_get_wtime();
 
     char* reverso_comp = reversoComplementario(secuencia);
 
+    // Medir el tiempo final
+    double end_time = omp_get_wtime();
+
     printf("Secuencia original: %s\n", secuencia);
     printf("Reverso complementario: %s\n", reverso_comp);
+    printf("Tiempo de ejecución: %.6f segundos\n", end_time - start_time);
 
     free(reverso_comp);
 
