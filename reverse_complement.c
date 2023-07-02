@@ -13,7 +13,7 @@ char complemento(char nucleotido) {
 }
 
 // Función para calcular el reverso complementario de una secuencia de ADN
-char* reversoComplementario(const char* secuencia, int num_threads) {
+char* reversoComplementario(const char* secuencia) {
     int len = strlen(secuencia);
     char* resultado = (char*) malloc((len + 1) * sizeof(char));
 
