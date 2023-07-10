@@ -23,22 +23,21 @@ string generarSecuenciaADN(int longitud) {
     mt19937 gen(rd());
     uniform_int_distribution<int> dis(0, 3);
 
-    #pragma omp parallel for
     for (int i = 0; i < longitud; i++) {
         int aleatorio = dis(gen);
 
         switch (aleatorio) {
             case 0:
-                secuencia[i] = 'A';
+                secuencia.push_back('A');
                 break;
             case 1:
-                secuencia[i] = 'T';
+                secuencia.push_back('T');
                 break;
             case 2:
-                secuencia[i] = 'C';
+                secuencia.push_back('C');
                 break;
             case 3:
-                secuencia[i] = 'G';
+                secuencia.push_back('G');
                 break;
         }
     }
@@ -125,38 +124,38 @@ void alinearSecuencias(const string& secuencia1, const string& secuencia2, int g
         j--;
     }
 
-    cout << "Secuencia 1: " << secuencia1 << endl;
-    cout << "Secuencia 2: " << secuencia2 << endl;
-    cout << "Alineamiento 1: " << alineamiento1 << endl;
-    cout << "Alineamiento 2: " << alineamiento2 << endl;
+    //cout << "Secuencia 1: " << secuencia1 << endl;
+    //cout << "Secuencia 2: " << secuencia2 << endl;
+    //cout << "Alineamiento 1: " << alineamiento1 << endl;
+    //cout << "Alineamiento 2: " << alineamiento2 << endl;
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        cout << "Uso: " << argv[0] << " <longitud_secuencia1> <longitud_secuencia2>" << endl;
+    if (argc != 4) {
+        cout << "Uso: " << argv[0] << " <longitud_secuencia1> <longitud_secuencia2> <num_threads>" << endl;
         return 1;
     }
 
     int longitud1 = stoi(argv[1]);
     int longitud2 = stoi(argv[2]);
+    int nt = stoi(argv[3]);
+
+    cout << "Longitudes: " << longitud1 << ", " << longitud2 << endl;
+    cout << "Num threads: " << nt << endl;
 
     int gap_penalty = -1;
     int match_score = 1;
     int mismatch_penalty = 2;
 
-    int num_threads = 4;
-
-    omp_set_num_threads(num_threads);
-
-    // Medir el tiempo inicial
-    double start_time = omp_get_wtime();
+    omp_set_num_threads(nt);
 
     string secuencia1 = generarSecuenciaADN(longitud1);
     string secuencia2 = generarSecuenciaADN(longitud2);
 
+    double start_time = omp_get_wtime();
+
     alinearSecuencias(secuencia1, secuencia2, gap_penalty, match_score, mismatch_penalty);
 
-    // Medir el tiempo final
     double end_time = omp_get_wtime();
 
     cout << "Tiempo de ejecución: " << end_time - start_time << " segundos" << endl;

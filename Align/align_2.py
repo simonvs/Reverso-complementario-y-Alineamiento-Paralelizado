@@ -11,10 +11,10 @@ def alinear_secuencias(secuencia1, secuencia2):
     alignments = pairwise2.align.globalxx(secuencia1, secuencia2)
     best_alignment = alignments[0]
     alineamiento1, alineamiento2, score, start, end = best_alignment
-    #print("Secuencia 1:", secuencia1)
-    #print("Secuencia 2:", secuencia2)
-    #print("Alineamiento 1:", alineamiento1)
-    #print("Alineamiento 2:", alineamiento2)
+    print("Secuencia 1:", secuencia1)
+    print("Secuencia 2:", secuencia2)
+    print("Alineamiento 1:", alineamiento1)
+    print("Alineamiento 2:", alineamiento2)
 
 def main():
     longitud1 = int(input("Ingrese la longitud de la secuencia 1: "))
