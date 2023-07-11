@@ -18,4 +18,4 @@ def measure_execution_time(sequence_length):
     print("Execution time:", execution_time, "seconds")
 
 # Ejemplo de uso: medir el tiempo de ejecución para una secuencia de longitud 100
-measure_execution_time(1000)
+measure_execution_time(1000000000)
